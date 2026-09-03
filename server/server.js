@@ -29,7 +29,12 @@ app.get("/", (req, res)=> res.send("API is Live!"))
 app.use("/api/meetings", meetingRouter)
 
 const io = new Server(server, {
-    cors: {origin: allowedOrigins, credentials: true}
+    cors: {
+        origin: allowedOrigins,
+        methods: ["GET", "POST"],
+        credentials: true
+    },
+    transports: ["polling", "websocket"]
 })
 
 setupSocketIO(io)
